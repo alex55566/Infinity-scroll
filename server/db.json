@@ -1,0 +1,40 @@
+{
+    "pages": [
+        {
+            "id": 1,
+            "pages": "/benefits",
+            "path": "/benefits",
+            "text": "Страница Benefits"
+        },
+        {
+            "id": 2,
+            "pages": "/prices",
+            "path": "/prices",
+            "text": "Страница Prices"
+        },
+        {
+            "id": 3,
+            "pages": "/special-offers",
+            "path": "/special-offers",
+            "text": "Страница Special-offers"
+        },
+        {
+            "id": 4,
+            "pages": "/promo",
+            "path": "/promo",
+            "text": "Страница Promo"
+        },
+        {
+            "id": 5,
+            "pages": "/esim",
+            "path": "/esim",
+            "text": "Страница Esim"
+        },
+        {
+            "id": 5,
+            "pages": "/connection",
+            "path": "/connection",
+            "text": "Страница Connection"
+        }
+    ]
+  }

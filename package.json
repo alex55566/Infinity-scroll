@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=development&&webpack serve",
+    "dev": "set NODE_ENV=development&&webpack serve",
     "build-dev": "set NODE_ENV=development&&webpack",
     "build-prod": "set NODE_ENV=production&&webpack",
-    "clear": "rd /s /q dist"
+    "clear": "rd /s /q dist",
+    "server": "json-server -w server/db.json -p 3001",
+    "start": "concurrently \"npm run server\" \"npm run dev\""
   },
   "keywords": [],
   "author": "",
@@ -35,6 +37,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "axios": "^1.5.1",
+    "concurrently": "^8.2.2",
+    "json-server": "^0.17.4",
     "normalize.css": "^8.0.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",

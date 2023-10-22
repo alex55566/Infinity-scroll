@@ -1,16 +1,56 @@
-$colorShark: #2C2D2E;
-$colorWhite: #FFFFFF;
-$colorAlabaster: #F9F9F9;
-$colorContrast: #FF7355;
-$colorTorchRed: #FF2045;
-$colorOsloGrey: #87898F;
-$colorPippin: #FFE3DD;
-$colorPippinOpac: rgba(255, 227, 221, 0.25);
-$colorTextMiddle: rgba(0, 0, 0, 0.87);
-$colorPurple: rgba(107, 42, 188, 0.25);
-$colorContrastSecond: rgba(255, 227, 221, 1);
-$colorPurpleHeart: #6B2ABC;
-$colorPersimmon: #FF7355;
-$colorGreyText: rgba(135, 137, 143, 1);
-$colorGreen: rgba(82, 167, 84, 1);
-$colorTextPrimary: rgba(44, 45, 46, 1);
+$colorShark: #1f2229;
+$colorWhite: #ffffff;
+$colorSlateGray: #7c8792;
+$colorTorchRed: #ff2045;
+$colorToryBlue: #164496;
+$colorGallery: #ededed;
+$colorDodgerBlue: #3fcbff;
+$widthContainer: 1120px;
+$gapSmall: 10px;
+
+$tabletBreakpoint: 1024px;
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin flexCenterCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexSpaceB {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin flexAlighnC {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flexSpaceBAlighnC {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flexColumnCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@mixin flexColumnSpaceB {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@mixin tablet {
+    @media screen and (max-width: $tabletBreakpoint) {
+        @content;
+    }
+}

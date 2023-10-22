@@ -1,15 +1,16 @@
-@import './fonts';
+@import "./fonts";
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
 }
-
 
 html {
     box-sizing: border-box;
 }
 
-body, html, #app {
+body,
+html,
+#app {
     height: 100%;
 }
 
@@ -49,4 +50,18 @@ svg path {
 
 html {
     scroll-behavior: smooth;
+}
+
+button {
+    background: unset;
+    border: unset;
+}
+
+button:active,
+button:focus {
+    outline: none;
+}
+
+button::-moz-focus-inner {
+    border: 0;
 }

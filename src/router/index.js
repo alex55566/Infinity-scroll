@@ -1,21 +1,42 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import MainPage from 'Pages/MainPage.vue'
-import QuestionsPage from 'Pages/QuestionsPage.vue'
+import SomePage from 'Pages/SomePage.vue'
+
 
 const routes = [
     {
-        path: '/',
-        component: MainPage,
-        name: 'main'
+        path: '/benefits',
+        component: SomePage,
+        name: 'somepage'
     },
     {
-        path: '/questions',
-        component: QuestionsPage,
-        name: 'questions'
+        path: '/prices',
+        component: SomePage,
+        
     },
+    {
+        path: '/special-offers',
+        component: SomePage,
+        
+    },
+    {
+        path: '/promo',
+        component: SomePage,
+      
+    },
+    {
+        path: '/esim',
+        component: SomePage,
+     
+    },
+    {
+        path: '/connection',
+        component: SomePage,
+       
+    },
+ 
     {
         path: '/:pathMatch(.*)*',
-        redirect: { name: 'main' }
+        redirect: { name: 'somepage' }
     },
 
 ]
