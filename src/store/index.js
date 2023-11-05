@@ -1,138 +1,108 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
+import { getRandomNumber } from '../helpers/helpers'
+import { nanoid } from 'nanoid'
 
 export default createStore({
     state: {
-        body: null,
-        container: null,
-        headerBlock: null,
-        havBlock: null,
-        btnBurger: null,
-        popup: null,
-        popupClose: null,
-        tabletWidth: 1024,
-        isLoad: false,
-        isError: false,
-        data: null,
+        leftBlock: [],
+        rightBlock: [],
+       
+        quantityItem: 20000,
+        step: 50,
+       
+        leftStepPrev: 0,
+        leftStepNext: 50,
+
+        rightStepPrev: 0,
+        rightStepNext: 50,
+        
+        leftColumn: null,
+        rightColumn: null,
+
+        leftLoader: null,
+        rightLoader: null,
+        
+        leftIteration: 0,
+        rightIteration: 0,
+
+        move: false
+   
     },
     mutations: {
-        addHeader(state, payload) {
-            state.headerBlock = payload
-        },
-        addNav(state, payload) {
-            state.havBlock = payload
-        },
-        addBtnBurger(state, payload) {
-            state.btnBurger = payload
-            console.log(state.btnBurger)
-        },
-        addPopup(state, payload) {
-            state.popup = payload
-        },
-        addPopupClose(state, payload) {
-            state.popupClose = payload
-        },
-        addContainer(state, payload) {
-            state.container = payload
-        },
-        addBody(state) {
-            state.body = document.querySelector('body')
-        },
-        initOnScroll(state) {
-            console.log(state.headerBlock)
-            document.addEventListener('scroll', () => {
-                if (window.innerWidth > state.tabletWidth) {
-                    if (window.scrollY !== 0) {
-                        state.headerBlock.style.top = -state.havBlock.offsetHeight + 'px'
-                    }
-                    else {
-                        state.headerBlock.style.top = '0px'
-                    }
-                }
-              
-            })
-        },
-        initOpenClosePopup(state) {
-            console.log(state.btnBurger)
-            state.btnBurger.addEventListener('click', () => {
-                this.commit('setPadding')
-                requestAnimationFrame(() => {
-                    state.popup.classList.add('active')
+        initBlocks(state) {
+            for (let i = 0; i < state.quantityItem; i++) {
+                const idx = getRandomNumber(1,12)
+                i < state.quantityItem / 2 ? 
+                state.leftBlock.push({
+                    id: nanoid(),
+                    price: Math.round(i * Math.random().toFixed(2)),
+                    lvl: i,
+                    pic: idx
+
+                }) :
+                state.rightBlock.push({
+                    id: nanoid(),
+                    price: Math.round(i * Math.random().toFixed(2)),
+                    lvl: i,
+                    pic: idx
                 })
-                state.popup.classList.add('showen')
-                state.body.style.overflow = 'hidden'
-            })
-            state.popupClose.addEventListener('click', () => {
-                this.commit('closePopup')
-            })
-            document.addEventListener('keydown', (e) => {
-                if (e.keyCode === 27) {
-                    if (state.popup.classList.contains('active')) {
-                        this.commit('closePopup')
-                    }
-                }
-            })
-        },
-        setPadding(state) {
-            const lockPadding = window.innerWidth - state.container.offsetWidth + 'px'
-            state.body.style.paddingRight = lockPadding
-        },
-        unsetPadding(state, el) {
-            el.classList.remove('active')
-            state.body.style.overflow = 'unset'
-            state.body.style.paddingRight = '0px'
-        },
-        toggleTwoClasses(state, {element, first, second, timeOfAnimation}) {
-            console.log(element)
-            if (!element.classList.contains(first)) {
-                element.classList.add(first);
-                element.classList.remove(second);
-            } else {
-                element.classList.add(second);
-                window.setTimeout(function () {
-                    element.classList.remove(first);
-                }, timeOfAnimation);
             }
         },
-        closePopupClick(state) {
-            this.commit('closePopup')
+        changeContainer(state, payload) {
+            const { block, id} = payload
+            const clickedItem = block === 'left' ? state.leftBlock.find(item => item.id === id) : state.rightBlock.find(item => item.id === id)
+            block === 'left' ? state.leftBlock = state.leftBlock.filter(item => item.id !== id) : state.rightBlock = state.rightBlock.filter(item => item.id !== id)
+            block === 'left' ?  state.rightBlock.unshift(clickedItem) : state.leftBlock.unshift(clickedItem)
         },
-        closePopup(state) {
-            this.commit('toggleTwoClasses', {element: state.popup, first: 'showen', second: 'hidden', timeOfAnimation: 700})
-            this.commit('unsetPadding', state.popup)
+        initLeftColumn(state,payload) {
+            state.leftColumn = payload
         },
-        checkStatePopup(state) {
-            if (innerWidth > state.tabletWidth) this.commit('closePopup')
+        initRightColumn(state,payload) {
+            state.rightColumn = payload
         },
-        showLoader(state, load) {
-            state.isLoad = load
+        initLeftCards(state,payload) {
+            state.leftCards = payload
         },
-        showError(state) {
-        state.isError = true;
+        initRightCards(state,payload) {
+            state.rightCards = payload
+        },
+        initLeftLoader(state,payload) {
+            state.leftLoader = payload
+        },
+        initRightLoader(state,payload) {
+            state.rightLoader = payload
+        },
+        //имитация лоадера (типа у нас асинхронный запрос)
+        initLoader(state, payload) {
+            state[`${payload}Loader`].classList.add('visible')
             setTimeout(() => {
-                state.isError = false
-            },2000)
+                state[`${payload}Loader`].classList.remove('visible')
+            }, 500);
         },
-        addData(state, payload) {
-            state.data = payload
-            console.log(payload)
-        }
-    },
-    actions: {
-        getData(context, payload) {
-            console.log(payload)
-            context.commit('showLoader', true)
-              axios
-              .get(
-                `http://localhost:3001/pages?path=${payload}`
-              )
-              .then((response) => {
-                context.commit('addData', response.data)
-              })
-              .catch(() =>  context.commit('showError'))
-              .finally(() => {
-                context.commit('showLoader', false)
-              });
-          },
-    } 
+        doScroll(state, payload) {
+            const column = payload === 'left' ? state.leftColumn : state.rightColumn
+            if (column.clientHeight + column.scrollTop >= column.scrollHeight) {
+                state[`${payload}StepNext`]  +=state.step
+                if (state[`${payload}Iteration`] > 0) state[`${payload}StepPrev`]+=state.step
+                state[`${payload}Iteration`] +=1
+                this.commit('initLoader', payload)
+            }
+            if (column.scrollTop === 0) {
+                state[`${payload}Iteration`] === 0
+                ? state[`${payload}Iteration`]
+                : state[`${payload}Iteration`] -= 1
+                if (state[`${payload}Iteration`] > 0) {
+                    state[`${payload}StepNext`] -= state.step;
+                    column.scrollTop += 5
+                    state[`${payload}StepPrev`] -= state.step;
+                    this.commit('initLoader', payload)
+                }
+                if (state[`${payload}Iteration`] === 0) {
+                    state[`${payload}StepNext`] = state.step;
+                }
+             
+            }
+        },
+    }
+    
 })

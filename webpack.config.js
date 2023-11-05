@@ -32,6 +32,7 @@ module.exports = {
             Components: path.resolve(__dirname, 'src/components/'),
             Pages: path.resolve(__dirname, 'src/pages/'),
             Styles: path.resolve(__dirname, 'src/style/'),
+            '@': path.resolve(__dirname, 'src'),
         },
     },
     plugins: [

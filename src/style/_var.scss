@@ -5,9 +5,11 @@ $colorTorchRed: #ff2045;
 $colorToryBlue: #164496;
 $colorGallery: #ededed;
 $colorDodgerBlue: #3fcbff;
+$colorOver: #ffeebb;
 $widthContainer: 1120px;
 $gapSmall: 10px;
 
+$mobileBreakpoint: 650px;
 $tabletBreakpoint: 1024px;
 
 @mixin flexCenter {
@@ -51,6 +53,12 @@ $tabletBreakpoint: 1024px;
 
 @mixin tablet {
     @media screen and (max-width: $tabletBreakpoint) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and (max-width: $mobileBreakpoint) {
         @content;
     }
 }

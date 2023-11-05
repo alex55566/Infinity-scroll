@@ -12,6 +12,9 @@ body,
 html,
 #app {
     height: 100%;
+    @include mobile {
+        font-size: 14px;
+    }
 }
 
 *,
