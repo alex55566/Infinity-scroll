@@ -24,8 +24,6 @@ export default createStore({
         
         leftIteration: 0,
         rightIteration: 0,
-
-        move: false
    
     },
     mutations: {

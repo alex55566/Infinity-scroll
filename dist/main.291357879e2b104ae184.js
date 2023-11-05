@@ -12217,8 +12217,7 @@ __webpack_require__.r(__webpack_exports__);
     leftLoader: null,
     rightLoader: null,
     leftIteration: 0,
-    rightIteration: 0,
-    move: false
+    rightIteration: 0
   },
   mutations: {
     initBlocks(state) {
@@ -29291,4 +29290,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=main.8a85a442f4f01c6a3c91.js.map
+//# sourceMappingURL=main.291357879e2b104ae184.js.map
